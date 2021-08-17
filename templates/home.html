@@ -1,0 +1,9 @@
+{% extends 'modelo.html' %}
+{% block  content%}
+	<h1>Caja De Ahorros</h1>
+	<h2>Registrar Cliente</h2>
+	<form method="post" action=""> {% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="Registrar">
+	</form>
+{% endblock content %}
