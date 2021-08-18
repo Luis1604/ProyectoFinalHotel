@@ -6,7 +6,7 @@ from django.db import models
 class Rol(models.Model):
 
     Nombre = models.CharField(max_length=30, choices=(
-        ('Administrador', ("Administrador")), ('Ciente', ("Ciente"))), default='Ciente')
+        ('Administrador', ("Administrador")), ('Cliente', ("Cliente"))), default='Cliente')
 
     def __str__(self):
         return self.Nombre
@@ -43,7 +43,6 @@ class Habitacion(models.Model):
 
 
 class Reserva(models.Model):
-    # ff
     Persona = models.ForeignKey(
         Persona(), on_delete=models.CASCADE, default="")
     numReserva = models.CharField(max_length=10, blank=False, default='')
