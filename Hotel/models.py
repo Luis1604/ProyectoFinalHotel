@@ -45,26 +45,26 @@ class Reserva(models.Model):
 class RegistroHuespedes(models.Model):
     
     Reserva=models.ForeignKey(Reserva(), on_delete=models.CASCADE, default="")
+    numRegistro=models.CharField(max_length=10,blank=False,default='')
     numPersonas=models.IntegerField(blank=False,default='')
     Fecha_Llegada=models.DateField(blank=False)
     Fecha_Salida=models.DateField(blank=False)
     Estado=models.CharField(max_length=30,choices=(('Pendiente', ("Pendiente")),('Pagado', ("Pagado"))), default='Pendiente')
     def __str__(self):
-        return self.numHabitacion
+        return self.numRegistro
 
 class Servicios(models.Model):
     
-    Cliente=models.ForeignKey(Persona(), on_delete=models.CASCADE, default="")
     Nombre_Servicio=models.CharField(max_length=30,blank=False)
     Precio=models.DecimalField(max_digits=20,decimal_places=2,blank=False)
     Descripcion=models.CharField(max_length=200,blank=False)
-    Estado=models.CharField(max_length=30,choices=(('Pendiente', ("Pendiente")),('Pagado', ("Pagado"))), default='Pendiente')
     def __str__(self):
-        return self.Cliente
+        return self.Nombre_Servicio
 
 class Pago(models.Model):
     
     Habitacion=models.ForeignKey(RegistroHuespedes(), on_delete=models.CASCADE, default="")
+    numPago=models.CharField(max_length=10,blank=False,default='')
     cedula=models.CharField(max_length=10, blank=False)
     Nombre=models.CharField(max_length=30,blank=False)
     Apellido=models.CharField(max_length=30,blank=False,default='')
@@ -72,5 +72,6 @@ class Pago(models.Model):
     Direccion=models.CharField(max_length=70,blank=False)
     Detalle=models.CharField(max_length=200,blank=False)
     Total=models.DecimalField(max_digits=20,decimal_places=2,blank=False)
+    Estado=models.CharField(max_length=30,choices=(('Pendiente', ("Pendiente")),('Pagado', ("Pagado"))), default='Pendiente')
     def __str__(self):
         return self.Habitacion

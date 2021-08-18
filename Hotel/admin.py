@@ -23,7 +23,7 @@ class AdminHabitacion(admin.ModelAdmin):
 admin.site.register(Habitacion,AdminHabitacion)
 
 class AdminReserva(admin.ModelAdmin):
-    list_display = ["__str__","Persona","numHabitacion","numReserva","Fecha_Ingreso","Fecha_Caducidad"]
+    list_display = ["__str__","Persona","numHabitacion","Fecha_Ingreso","Fecha_Caducidad"]
     class Meta(object):
         model = Reserva
 
@@ -37,7 +37,7 @@ class AdminRegistroHuespedes(admin.ModelAdmin):
 admin.site.register(RegistroHuespedes,AdminRegistroHuespedes)
 
 class AdminServicios(admin.ModelAdmin):
-    list_display = ["__str__","Cliente","Nombre_Servicio","Precio","Descripcion","Estado"]
+    list_display = ["__str__","Nombre_Servicio","Precio","Descripcion"]
     class Meta(object):
         model = Servicios
 

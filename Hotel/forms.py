@@ -1,12 +1,13 @@
 from django import forms
-from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
-
-class FormRol(forms.ModelForm):
-    class Meta:
-        model = Rol
-        fields=["Nombre"]
+from .models import Persona, Reserva
 
 class FormPersona(forms.ModelForm):
     class Meta:
         model = Persona
-        fields=["Nombre","Apellido","cedula","Email","Telefono","password","Rol"]
+        fields=["Nombre","Apellido","cedula","Email","Telefono","Direccion","password","Rol"]
+
+class FormReserva(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields=["Persona","numReserva","numHabitacion","Fecha_Ingreso","Fecha_Caducidad"]
+
