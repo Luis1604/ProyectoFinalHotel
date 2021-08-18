@@ -74,6 +74,7 @@ class Servicios(models.Model):
 class Pago(models.Model):
  
     Habitacion=models.ForeignKey(RegistroHuespedes(), on_delete=models.CASCADE, default="")
+    Servicios=models.ForeignKey(Servicios(), on_delete=models.CASCADE, default="")
     numPago=models.CharField(max_length=10,blank=False,default='')
     cedula=models.CharField(max_length=10, blank=False)
     Nombre=models.CharField(max_length=30,blank=False)
@@ -84,4 +85,4 @@ class Pago(models.Model):
     Total=models.DecimalField(max_digits=20,decimal_places=2,blank=False)
     Estado=models.CharField(max_length=30,choices=(('Pendiente', ("Pendiente")),('Pagado', ("Pagado"))), default='Pendiente')
     def __str__(self):
-        return self.Habitacion
+        return self.Habitacion.Reserva.numHabitacion.numHabitacion
