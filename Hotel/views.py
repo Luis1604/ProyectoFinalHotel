@@ -7,6 +7,9 @@ from .forms import FormPago, FormPersona, FormReserva
 from .serializers import personaSerializer
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 
@@ -14,44 +17,42 @@ def index(request):
     return HttpResponse("Funcionando")
 
 
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def registrar_list(request):
     if request.method == 'GET':
         persona = Persona.objects.all()
         serializer = personaSerializer(persona, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = personaSerializer(data=data)
+        serializer = personaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
 def registrar_detail(request, pk):
     try:
         persona = Persona.objects.get(pk=pk)
     except Persona.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = personaSerializer(persona)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = personaSerializer(persona, data=data)
+        serializer = personaSerializer(persona, request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         persona.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @csrf_protect
@@ -77,7 +78,7 @@ def inicio_view(request):
                 print(f.cleaned_data)
                 return redirect(inicio_view)
     context = {
-        "form":f,
+        "form": f,
     }
     return render(request, "inicio.html", {})
 
@@ -85,6 +86,6 @@ def inicio_view(request):
 def reserva_view(request):
     return render(request, "reserva.html", {})
 
+
 def servicio_view(request):
     return render(request, "servicios.html", {})
-
