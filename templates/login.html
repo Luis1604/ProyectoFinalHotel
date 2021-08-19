@@ -53,38 +53,16 @@
       <div class="wrapper">
         <article class="col1">
           <form id="form_1" action="#" method="post">
-            <div class="pad1">
-              <h3>Login</h3>
-              <form method="post">
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col-md-6 col-md-offset-3">
-                    <div class="form-group">
-                      <label for="username">Usuario:</label>
-                      <input class="form-control" type="text" name="username">
-                    </div>
-                  </div>
+              <div class="pad1">
+                <h3>Login</h3>
+                <div class="row"> Usuario:<br>
+                  <input type="text" class="input" name="username">
                 </div>
-
-                <div class="row">
-                  <div class="col-md-6 col-md-offset-3">
-                    <div class="form-group">
-                      <label for="username">Contraseña:</label>
-                      <input class="form-control" type="password" name="password">
-                    </div>
-                  </div>
+                <div class="row"> Contraseña:<br>
+                  <input type="password" class="input" name="password">
                 </div>
-
-                 <div class="row">
-                  <div class="col-md-6 col-md-offset-3">
-                    <div class="form-group">
-                      <input class="btn btn-primary" type="submit" value="Ingresar">
-                    </div>
-                  </div>
-                </div>
-              </form>
+                <div class="cols pad_left1"> <a href="/login" class="button" type="submit">Ingresar</a> </div>
               </div>
-            </div>
           </form>
       </div>
     </section>

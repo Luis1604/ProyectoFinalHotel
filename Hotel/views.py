@@ -66,6 +66,7 @@ def inicio_view(request):
         if f.is_valid():
             datos = f.cleaned_data
             c = Persona()
+            c.Rol= Rol(2)
             c.Nombre = datos.get("Nombre")
             c.Apellido = datos.get("Apellido")
             c.cedula = datos.get("cedula")
@@ -74,13 +75,11 @@ def inicio_view(request):
             c.Direccion = datos.get("Direccion")
             c.password = datos.get("password")
             if c.save() != True:
-                print('Imprimo en pantalla y guardo data en BD')
-                print(f.cleaned_data)
                 return redirect(inicio_view)
     context = {
-        "form": f,
+        'form': f,
     }
-    return render(request, "inicio.html", {})
+    return render(request, "inicio.html", context)
 
 
 def reserva_view(request):
