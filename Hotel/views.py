@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.shortcuts import render, redirect
 from rest_framework import serializers
 from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from .forms import FormPago, FormPersona, FormReserva
 from .serializers import personaSerializer
 from django.http import JsonResponse
@@ -44,16 +44,15 @@ def registrar_detail(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = personaSerializer(persona, data=data)
+        serializer = personaSerializer(persona, request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         persona.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @csrf_protect
@@ -67,8 +66,8 @@ def inicio_view(request):
         if f.is_valid():
             datos = f.cleaned_data
             c = Persona()
-            r=Rol()
-            c.Rol = Ro
+            r = Rol()
+            c.Rol = Rol
             c.Nombre = datos.get("Nombre")
             c.Apellido = datos.get("Apellido")
             c.cedula = datos.get("cedula")
@@ -81,7 +80,7 @@ def inicio_view(request):
                 print(f.cleaned_data)
                 return redirect(inicio_view)
     context = {
-        "form":f,
+        "form": f,
     }
     return render(request, "inicio.html", {})
 
@@ -89,6 +88,6 @@ def inicio_view(request):
 def reserva_view(request):
     return render(request, "reserva.html", {})
 
+
 def servicio_view(request):
     return render(request, "servicios.html", {})
-
