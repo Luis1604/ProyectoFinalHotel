@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.shortcuts import render, redirect
 from rest_framework import serializers
 from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from .forms import FormPago, FormPersona, FormReserva
 from .serializers import personaSerializer
 from django.http import JsonResponse
@@ -58,15 +58,13 @@ def registrar_detail(request, pk):
 def login_view(request):
     return render(request, "login.html", {})
 
-
+@csrf_protect
 def inicio_view(request):
     f = FormPersona(request.POST or None)
     if request.method == 'POST':
         if f.is_valid():
             datos = f.cleaned_data
             c = Persona()
-            r=Rol()
-            c.Rol = Ro
             c.Nombre = datos.get("Nombre")
             c.Apellido = datos.get("Apellido")
             c.cedula = datos.get("cedula")
