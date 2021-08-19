@@ -51,7 +51,7 @@ body {
 	width:960px
 }
 .body1 {
-	background:url(../images/bg_top.gif) top repeat-x
+	background:url(../images/caption_white.jpg) top repeat-x
 }
 .body2 {
 	background:#2e2e2e
@@ -80,6 +80,7 @@ h1 {
 	padding-left:191px;
 	padding-top:28px
 }
+
 h2 {
 	font-size:37px;
 	color:#87a310;
@@ -126,13 +127,7 @@ header {
 	position:relative;
 	height:177px
 }
-#logo {
-	display:block;
-	background:url(../images/logo.gif) 0 0 no-repeat;
-	width:213px;
-	height:38px;
-	text-indent:-9999px
-}
+
 #icons {
 	float:right;
 	padding:34px 29px 0 0
@@ -266,8 +261,7 @@ a.aToolTipCloseBtn {
 .nivo-caption span {
 	font-weight:bold
 }
-.nivo-html-caption {
-}
+
 /* content */
 #content {
 	padding-top:20px;
@@ -375,10 +369,7 @@ footer {
 	height:66px;
 	font-size:13px
 }
-footer a {
-}
-footer a:hover {
-}
+
 .call {
 	float:right;
 	font-size:32px;
@@ -392,8 +383,7 @@ footer a:hover {
 	color:#191919
 }
 /* forms */
-#ContactForm {
-}
+
 #ContactForm span {
 	float:left;
 	width:100px
