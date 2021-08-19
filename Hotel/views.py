@@ -15,7 +15,7 @@ def index(request):
 
 
 @csrf_exempt
-def registrar(request):
+def registrar_list(request):
     if request.method == 'GET':
         persona = Persona.objects.all()
         serializer = personaSerializer(persona, many=True)
@@ -28,6 +28,30 @@ def registrar(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def registrar_detail(request, pk):
+    try:
+        persona = Persona.objects.get(pk=pk)
+    except Persona.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = personaSerializer(persona)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = personaSerializer(persona, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        persona.delete()
+        return HttpResponse(status=204)
 
 
 def login_view(request):
