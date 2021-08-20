@@ -11,7 +11,7 @@ class rolSerializer(serializers.ModelSerializer):
 class personaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Persona
-        fields = ['Rol', 'cedula', 'Nombre', 'Apellido',
+        fields = ['id', 'Rol', 'cedula', 'Nombre', 'Apellido',
                   'Email', 'Telefono', 'Direccion', 'password']
 
 

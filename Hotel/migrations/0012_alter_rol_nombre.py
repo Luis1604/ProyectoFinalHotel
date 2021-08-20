@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rol',
             name='Nombre',
-            field=models.CharField(choices=[('Administrador', 'Administrador'), ('Cliente', 'Cliente')], default='Cliente', max_length=30),
+            field=models.CharField(choices=[('Administrador', 'Administrador'), (
+                'Cliente', 'Cliente')], default='Cliente', max_length=30),
         ),
     ]
