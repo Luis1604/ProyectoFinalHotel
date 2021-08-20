@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin.filters import ListFilter
 from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
-
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 
 class AdminRol(admin.ModelAdmin):
     list_display = ["__str__", "Nombre"]
@@ -21,7 +22,7 @@ class AdminPersona(admin.ModelAdmin):
     class Meta(object):
         model = Persona
 
-admin.site.register(Persona, AdminPersona)
+admin.site.register(Persona)
 
 
 class AdminHabitacion(admin.ModelAdmin):

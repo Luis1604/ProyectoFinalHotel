@@ -3,20 +3,19 @@ from django.shortcuts import render, redirect
 from rest_framework import serializers
 from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from .forms import FormPago, FormPersona, FormReserva
+from .forms import FormPago, FormPersona, FormReserva ,FormLogin
 from .serializers import personaSerializer
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
 # Create your views here.
-
-
 def index(request):
     return HttpResponse("Funcionando")
 
-
+logiado=False
 @api_view(['GET', 'POST'])
 def registrar_list(request):
     if request.method == 'GET':
@@ -57,7 +56,28 @@ def registrar_detail(request, pk):
 
 @csrf_protect
 def login_view(request):
-    return render(request, "login.html", {})
+    flogin = FormLogin(request.POST or None)
+    if request.method == 'POST':
+        if flogin.is_valid():
+            datos = flogin.cleaned_data
+            email = datos.get("Email")
+            passw = datos.get("password")
+            numEncontrados = Persona.objects.filter(Email = email, password=passw).count()
+            print(email)
+            print(numEncontrados)
+            if numEncontrados > 0:
+                logiado=True
+                print("Inicio perfecto")
+                return redirect(inicio_view)
+            else:
+                print("Fallo")
+                logiado=False
+    context = {
+        'form': flogin,
+    }
+    return render(request, "login.html", context)
+
+    
 
 @csrf_protect
 def inicio_view(request):
@@ -81,10 +101,45 @@ def inicio_view(request):
     }
     return render(request, "inicio.html", context)
 
-
+@csrf_protect
 def reserva_view(request):
-    return render(request, "reserva.html", {})
+    fr = FormReserva(request.POST or None)
+    if request.method == 'POST':
+        if  fr.is_valid():
+            datos = fr.cleaned_data
+            nreserva="0001"+"983"
+            c = Reserva()
+            c.numHabitacion = datos.get("numHabitacion")
+            c.Persona = datos.get("Persona")
+            c.Fecha_Ingreso = datos.get("Fecha_Ingreso")
+            c.Fecha_Caducidad = datos.get("Fecha_Caducidad")
+            c.numReserva = nreserva
+            if c.save() != True:
+                return redirect(inicio_view)
+    context = {
+        "form": fr,
+    }
+    return render(request, "reserva.html", context)
 
-
+@csrf_protect
 def servicio_view(request):
-    return render(request, "servicios.html", {})
+    fs = FormPago(request.POST or None)
+    if request.method == 'POST':
+        if  fs.is_valid():
+            datos = fs.cleaned_data
+            c = Pago()
+            c.Servicios = datos.get("Servicios")
+            c.Habitacion = datos.get("Habitacion")
+            c.Nombre = datos.get("Habitacion").Reserva.Persona.Nombre
+            c.Apellido = datos.get("Habitacion").Reserva.Persona.Apellido
+            c.Email =  datos.get("Habitacion").Reserva.Persona.Email
+            c.Detalle = ""
+            c.Direccion = datos.get("Habitacion").Reserva.Persona.Direccion
+            c.Total= datos.get("Habitacion").Reserva.numHabitacion.Precio + datos.get("Servicios").Precio
+            c.Estado = 'Pendiente'
+            if c.save() != True:
+                return redirect(inicio_view)
+    context = {
+        "form": fs,
+    }
+    return render(request, "servicios.html", context)

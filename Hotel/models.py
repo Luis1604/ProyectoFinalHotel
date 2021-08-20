@@ -1,7 +1,5 @@
 from django.db import models
-
 # creando
-
 
 class Rol(models.Model):
 
@@ -10,7 +8,6 @@ class Rol(models.Model):
 
     def __str__(self):
         return self.Nombre
-
 
 class Persona(models.Model):
 
@@ -22,10 +19,9 @@ class Persona(models.Model):
     Telefono = models.CharField(max_length=30, blank=False, default='')
     Direccion = models.CharField(max_length=70, blank=False)
     password = models.CharField(max_length=20, blank=False)
-
+        
     def __str__(self):
         return "%s %s" % (self.Nombre, self.Apellido)
-
 
 class Habitacion(models.Model):
 

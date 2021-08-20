@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css" media="all">
 <link rel="stylesheet" href="{% static 'css/layout.css' %}" type="text/css" media="all">
 <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
+<link rel="shortcut icon" href="{% static 'images/icono.ico' %}">
 <script src="{% static 'js/jquery-1.6.js' %}" ></script>
 <script src="{% static 'js/cufon-yui.js' %}"></script>
 <script src="{% static 'js/cufon-replace.js' %}"></script>
@@ -52,12 +53,12 @@
     <section id="content">
       <div class="wrapper">
         <article class="col1">
-          <form id="form_1" action="#" method="post">
             <div class="pad1">
-              <h3>Solicitar Servicios</h3>
-
+              <h2>Solicitar Servicios</h2>
+               <form method="post" action=""> {% csrf_token %}
+                  {{form.as_p}}
+                  <input class="button" type="submit" value="Registrar">
             </div>
-          </form>
       </div>
     </section>
   </div>
@@ -68,6 +69,7 @@
     <!-- footer -->
     <footer> 
     <span class="call">Contactos: <span>1-800-567-8934</span>
+    <a target="_blank" href="/admin">Administración</a>
     </footer>
     <!-- / footer -->
   </div>
