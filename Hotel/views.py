@@ -10,13 +10,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Rol, Persona, Habitacion, RegistroHuespedes, Reserva, Servicios, Pago
 from .serializers import personaSerializer
-
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
     return HttpResponse("Funcionando")
-
-logiado=False
 
 
 class registrarViewSet(viewsets.ReadOnlyModelViewSet):
@@ -36,10 +34,9 @@ class SnippetViewSet(viewsets.ModelViewSet):
     """
     queryset = Persona.objects.all()
     serializer_class = personaSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly]
-
-    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    ##permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    
+    #@action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def highlight(self, request, *args, **kwargs):
         persona = self.get_object()
         return Response(snippet.highlighted)
@@ -163,7 +160,7 @@ def registrar_detail(request, pk):
 
 '''
 
-
+logiado = False
 @csrf_protect
 def login_view(request):
     flogin = FormLogin(request.POST or None)
@@ -178,19 +175,22 @@ def login_view(request):
             if numEncontrados > 0:
                 logiado=True
                 print("Inicio perfecto")
-                return redirect(inicio_view)
+                messages.success(request, 'Bienvenido')
+                return redirect(login_view)
             else:
                 print("Fallo")
-                logiado=False
+                messages.warning(request, 'Credenciales Incorrectas')
+                return redirect(login_view)
     context = {
         'form': flogin,
     }
     return render(request, "login.html", context)
 
-    
+def inicio_view(request):
+        return render(request, "inicio.html", {})   
 
 @csrf_protect
-def inicio_view(request):
+def registro_view(request):
     f = FormPersona(request.POST or None)
     if request.method == 'POST':
         if f.is_valid():
@@ -205,11 +205,12 @@ def inicio_view(request):
             c.Direccion = datos.get("Direccion")
             c.password = datos.get("password")
             if c.save() != True:
-                return redirect(inicio_view)
+                messages.warning(request, 'Registrado Correctamente')
+                return redirect(registro_view)
     context = {
         'form': f,
     }
-    return render(request, "inicio.html", context)
+    return render(request, "registro.html", context)
 
 @csrf_protect
 def reserva_view(request):
@@ -225,7 +226,8 @@ def reserva_view(request):
             c.Fecha_Caducidad = datos.get("Fecha_Caducidad")
             c.numReserva = nreserva
             if c.save() != True:
-                return redirect(inicio_view)
+                messages.warning(request, 'Reservada correctamente')
+                return redirect(reserva_view)     
     context = {
         "form": fr,
     }
@@ -248,6 +250,7 @@ def servicio_view(request):
             c.Total= datos.get("Habitacion").Reserva.numHabitacion.Precio + datos.get("Servicios").Precio
             c.Estado = 'Pendiente'
             if c.save() != True:
+                messages.warning(request, 'Registrado Correctamente')
                 return redirect(inicio_view)
     context = {
         "form": fs,

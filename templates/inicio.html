@@ -39,6 +39,7 @@
       <nav>
         <ul id="menu">
           <li id="menu_active"><a href="/">Inicio</a></li>
+          <li><a href="/registro">Registrarse</a></li>
           <li><a href="/reserva">Reservar</a></li>
           <li><a href="/servicios">Solicitar Servicio</a></li>
           <li class="end"><a href="/login">Iniciar Sesion</a></li>
@@ -73,13 +74,6 @@
       <div class="wrapper">
         <article class="col1">
           <div class="pad2">
-                <div>
-                  <h2 align="center">Registrar Usuario</h2>
-                  <form method="post" action=""> {% csrf_token %}
-                      {{form.as_p}}
-                      <input  class="button" type="submit" value="Registrar">
-                  </form>
-                </div>
             <h2>Informacion de Habitaciones</h2>
             <div class="wrapper pad_bot3">
                 <figure class="left marg_right1"><img src="{% static 'images/page1_img4.jpg' %}"alt=""></figure>
@@ -97,10 +91,19 @@
                 <a href="/reserva" class="button">Reservar</a> 
             </div>
             <div class="wrapper">
+            <div class="wrapper pad_bot3">
                 <figure class="left marg_right1"><img src="{% static 'images/page1_img5.jpg' %}"  alt=""></figure>
                 <p class="pad_bot1"><strong class="color2">HABITACIONES DOBLES<br>
-                Precio: <span class="color1">$ 40 000</span></strong></p>
+                Precio: <span class="color1">$ 40 00</span></strong></p>
                 <p class="pad_bot2"> Las habitaciones dobles dispones de dos camas, un baño y una sala de estar.</p>
+                <a href="/reserva" class="button">Reservar</a> 
+            </div>
+            <div class="wrapper">
+            <div class="wrapper pad_bot3">
+                <figure class="left marg_right1"><img src="{% static 'images/page1_img6.jpg' %}"  alt=""></figure>
+                <p class="pad_bot1"><strong class="color2">HABITACIONES INDIVIDUALES<br>
+                Precio: <span class="color1">$ 20 00</span></strong></p>
+                <p class="pad_bot2"> Las habitaciones dobles dispones de una cama, un baño y una sala de estar.</p>
                 <a href="/reserva" class="button">Reservar</a> 
             </div>
           </div>
