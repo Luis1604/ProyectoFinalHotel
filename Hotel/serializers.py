@@ -18,28 +18,28 @@ class personaSerializer(serializers.ModelSerializer):
 class habitacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habitacion
-        fields = ['numHabitacion', 'Tipo',
+        fields = ['id', 'numHabitacion', 'Tipo',
                   'numPiso', 'Detalle', 'Precio', 'Estado']
 
 
 class reservaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reserva
-        fields = ['Persona', 'numReserva',
+        fields = ['id', 'Persona', 'numReserva',
                   'numHabitacion', 'Fecha_Ingreso', 'Fecha_Caducidad']
 
 
 class registroHuespedesSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroHuespedes
-        fields = ['Reserva', 'numPersonas',
+        fields = ['id', 'Reserva', 'numPersonas',
                   'Fecha_Llegada', 'Fecha_Salida', 'Estado']
 
 
 class serviciosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Servicios
-        fields = ['Nombre_Servicio', 'Precio', 'Descripcion']
+        fields = ['id', 'Nombre_Servicio', 'Precio', 'Descripcion']
 
 
 class pagoSerializer(serializers.ModelSerializer):

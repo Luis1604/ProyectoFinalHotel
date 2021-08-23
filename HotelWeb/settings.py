@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yqy-8_!$&w3nt(ep#$5w-x7d+jq^lc6uq^^1#2omg%2crpuc69
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.52']
 
 
 # Application definition
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'HotelWeb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,"templates"],
+        'DIRS': [BASE_DIR, "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates'),
-]
+                    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
