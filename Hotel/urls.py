@@ -1,6 +1,6 @@
 from django.urls import path
+from .views import login_view, inicio_view, reserva_view, servicio_view, registro_view
 from django.urls.conf import include
-from .views import login_view, inicio_view, reserva_view, servicio_view
 from .views import personaViewSet, habitacionViewSet, reservaViewSet, registroHuespedesViewSet, serviciosViewSet
 from rest_framework.routers import DefaultRouter, Route
 
@@ -17,5 +17,6 @@ urlpatterns = [
     path('home/', inicio_view),
     path('reserva/', reserva_view),
     path('servicios/', servicio_view),
-    path('login/', login_view),
+    path('login/', login_view), 
+    path('registro/', registro_view),
 ]

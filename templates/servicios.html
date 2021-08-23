@@ -38,6 +38,7 @@
       <nav>
         <ul id="menu">
           <li id="menu_active"><a href="/">Inicio</a></li>
+          <li><a href="/registro">Registrarse</a></li>
           <li><a href="/reserva">Reservar</a></li>
           <li><a href="/servicios">Solicitar Servicio</a></li>
           <li class="end"><a href="/login">Iniciar Sesion</a></li>
@@ -57,6 +58,12 @@
               <h2>Solicitar Servicios</h2>
                <form method="post" action=""> {% csrf_token %}
                   {{form.as_p}}
+                   <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    <div></div>
+                    {% endfor %}
+                  </ul>
                   <input class="button" type="submit" value="Registrar">
             </div>
       </div>

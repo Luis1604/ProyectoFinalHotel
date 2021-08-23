@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Reservaciones</title>
+<title>Servicios</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css" media="all">
 <link rel="stylesheet" href="{% static 'css/layout.css' %}" type="text/css" media="all">
@@ -42,7 +42,7 @@
           <li><a href="/reserva">Reservar</a></li>
           <li><a href="/servicios">Solicitar Servicio</a></li>
           <li class="end"><a href="/login">Iniciar Sesion</a></li>
-          </ul>
+        </ul>
       </nav>
     </header>
     <!-- / header -->
@@ -54,17 +54,9 @@
     <section id="content">
       <div class="wrapper">
         <article class="col1">
-          <div class="pad2">
-            <h2 class="pad_bot1 pad_top1">Habitaciones</h2>
-            <p class="pad_bot1 color2">El hotel LAND cuenta con cuatro diferentes tipos de habitaciones, primeramente, la habitación individual la cual consta de una cama, baño y una pequeña sala de estar. Las habitaciones dobles dispones de dos camas, un baño y una sala de estar. Las habitaciones triples constan de tres camas, dos baños y una sala de estar. Finalmente, la suite consta de tres habitaciones, tres baños, centro de entretenimiento, televisión por cable y una amplia sala de estar.</p>
-            <p class="pad_bot2">Además, se dispone de una lista de diferentes servicios como: internet, servicio a la habitación, comida, bebidas, vinos y servicios de entretenimiento.</p>
-        </article>
-      
-        <article class="col2">
-          <form id="form_1" action="#" method="post">
-            <div class="pad2">
-              <h3>Registrar Reserva</h3>
-                  <form method="post" action=""> {% csrf_token %}
+            <div class="pad1">
+              <h2>Registrar Cuenta</h2>
+               <form method="post" action=""> {% csrf_token %}
                   {{form.as_p}}
                    <ul class="messages">
                     {% for message in messages %}
@@ -73,16 +65,7 @@
                     {% endfor %}
                   </ul>
                   <input class="button" type="submit" value="Registrar">
-	</form>
             </div>
-          </form>
-        </article>
-        <article class="col1">
-          <div class="pad1">
-            <h3>SERVICIOS</h3>
-            <p>El hotel LAND se dispone de una lista de diferentes servicios como: internet, servicio a la habitación, comida, bebidas, vinos y servicios de entretenimiento.</p>
-            <a href="/servicios" class="button">Servicios</a> </div>
-        </article>
       </div>
     </section>
   </div>
